@@ -15,8 +15,8 @@ class DocumentService:
         self.document = DocumentModel(unique_id=unique_id, document_validated=document_validated)
 
     async def save_user_document_file(self) -> bool:
-        temp_file_document_front = DocumentService._resolve_content(self.document.document_front)
-        temp_file_document_back = DocumentService._resolve_content(self.document.document_back)
+        temp_file_document_front = await DocumentService._resolve_content(self.document.document_front)
+        temp_file_document_back = await DocumentService._resolve_content(self.document.document_back)
         await FileRepository.save_user_document_file(file_path=self.document.path_document_front, temp_file=temp_file_document_front)
         await FileRepository.save_user_document_file(file_path=self.document.path_document_back, temp_file=temp_file_document_back)
         await self._content_exists()

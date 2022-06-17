@@ -1,6 +1,6 @@
 # Jormungandr - Onboarding
 from src.domain.enums.code import InternalCode
-from src.domain.exceptions import ErrorOnSendAuditLog, ErrorOnDecodeJwt, ErrorOnUpdateUser, UserUniqueIdNotExists, FileNotExists
+from src.domain.exceptions import ErrorOnSendAuditLog, ErrorOnDecodeJwt, FileNotExists
 from src.domain.response.model import ResponseModel
 from src.domain.validator import UserDocument
 from src.services.identifier_document import DocumentService
@@ -41,20 +41,6 @@ async def save_document():
         Gladsheim.error(error=ex, message=ex.msg)
         response = ResponseModel(
             success=False, code=InternalCode.DATA_NOT_FOUND, message=msg_error
-        ).build_http_response(status=HTTPStatus.INTERNAL_SERVER_ERROR)
-        return response
-
-    except UserUniqueIdNotExists as ex:
-        Gladsheim.error(error=ex, message=ex.msg)
-        response = ResponseModel(
-            success=False, code=InternalCode.DATA_NOT_FOUND, message=msg_error
-        ).build_http_response(status=HTTPStatus.INTERNAL_SERVER_ERROR)
-        return response
-
-    except ErrorOnUpdateUser as ex:
-        Gladsheim.error(error=ex, message=ex.msg)
-        response = ResponseModel(
-            success=False, code=InternalCode.INTERNAL_SERVER_ERROR, message=msg_error
         ).build_http_response(status=HTTPStatus.INTERNAL_SERVER_ERROR)
         return response
 
