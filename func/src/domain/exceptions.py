@@ -14,3 +14,7 @@ class ErrorOnSendAuditLog(Exception):
 class ErrorOnUpdateUser(Exception):
     msg = "Jormungandr-Onboarding::user_identifier_data::Error on trying to update user in mongo_db::" \
           "User not exists, or unique_id invalid"
+
+
+class FileNotExists(Exception):
+    msg = "Jormungandr-Onboarding::DocumentService::_content_exists::Not found any content in bucket path"

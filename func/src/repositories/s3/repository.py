@@ -29,7 +29,13 @@ class FileRepository:
             raise ex
 
     @classmethod
-    async def list_contents(cls, file_path):
-        async with cls.infra.get_client() as s3_client:
-            content_result = await s3_client.list_objects_v2(Bucket=cls.bucket_name, Prefix=file_path)
-            return content_result
+    async def list_contents(cls, file_path: str):
+        try:
+            async with cls.infra.get_client() as s3_client:
+                content_result = await s3_client.list_objects_v2(Bucket=cls.bucket_name, Prefix=file_path)
+                return content_result
+        except Exception as ex:
+            message = f"Jormungandr-Onboarding::FileRepository::save_user_file:: error trying to find any content in" \
+                      f" {file_path}"
+            Gladsheim.error(error=ex, message=message)
+            raise ex
