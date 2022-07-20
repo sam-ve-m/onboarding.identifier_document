@@ -40,7 +40,7 @@ async def save_document():
     except FileNotExists as ex:
         Gladsheim.error(error=ex, message=ex.msg)
         response = ResponseModel(
-            success=False, code=InternalCode.DATA_NOT_FOUND, message=msg_error
+            success=False, code=InternalCode.DATA_NOT_FOUND, message='Error on save document'
         ).build_http_response(status=HTTPStatus.INTERNAL_SERVER_ERROR)
         return response
 

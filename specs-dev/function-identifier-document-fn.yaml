@@ -1,0 +1,55 @@
+include:
+- ./func/*
+kind: ArchiveUploadSpec
+name: func-SMrc
+
+---
+apiVersion: fission.io/v1
+kind: Package
+metadata:
+  creationTimestamp: null
+  name: identifier-document-fn-6d5cad87-d6b3-4f88-86b5-9bec321d1cb3
+  namespace: default
+spec:
+  deployment:
+    checksum: {}
+  environment:
+    name: identifier-document-env
+    namespace: default
+  source:
+    checksum: {}
+    type: url
+    url: archive://func-SMrc
+status:
+  buildstatus: pending
+  lastUpdateTimestamp: "2022-07-20T04:07:15Z"
+
+---
+apiVersion: fission.io/v1
+kind: Function
+metadata:
+  creationTimestamp: null
+  name: identifier-document-fn
+  namespace: default
+spec:
+  InvokeStrategy:
+    ExecutionStrategy:
+      ExecutorType: newdeploy
+      MaxScale: 1
+      MinScale: 1
+      SpecializationTimeout: 120
+      TargetCPUPercent: 0
+    StrategyType: execution
+  concurrency: 500
+  environment:
+    name: identifier-document-env
+    namespace: default
+  functionTimeout: 60
+  idletimeout: 120
+  package:
+    functionName: main.save_document
+    packageref:
+      name: identifier-document-fn-6d5cad87-d6b3-4f88-86b5-9bec321d1cb3
+      namespace: default
+  requestsPerPod: 1
+  resources: {}

@@ -37,5 +37,3 @@ class DocumentService:
             temp_file.write(decoded_document)
             temp_file.seek(SEEK_SET)
             return temp_file
-
-
