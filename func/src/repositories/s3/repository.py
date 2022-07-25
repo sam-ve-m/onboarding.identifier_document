@@ -18,7 +18,8 @@ class FileRepository:
         try:
             async with cls.infra.get_client() as s3_client:
                 await s3_client.upload_fileobj(
-                    temp_file, cls.bucket_name,
+                    temp_file,
+                    cls.bucket_name,
                     file_path,
                 )
 

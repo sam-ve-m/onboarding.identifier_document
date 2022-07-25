@@ -11,15 +11,15 @@ from http import HTTPStatus
 
 # Third party
 from etria_logger import Gladsheim
-from flask import request
+from flask import request, Response
 
 
-async def save_document():
+async def save_document() -> Response:
     raw_document = request.json
     jwt = request.headers.get("x-thebes-answer")
-    unique_id = await JwtService.decode_jwt_and_get_unique_id(jwt=jwt)
     msg_error = "Unexpected error occurred"
     try:
+        unique_id = await JwtService.decode_jwt_and_get_unique_id(jwt=jwt)
         document_validated = UserDocument(**raw_document).dict()
         document_service = DocumentService(unique_id=unique_id, document_validated=document_validated)
         success = await document_service.save_user_document_file()
@@ -53,7 +53,7 @@ async def save_document():
 
     except ValueError:
         response = ResponseModel(
-            success=False, code=InternalCode.INVALID_PARAMS, message="Invalid base64 string"
+            success=False, code=InternalCode.INVALID_PARAMS, message="Invalid, extra or missing params"
         ).build_http_response(status=HTTPStatus.BAD_REQUEST)
         return response
 

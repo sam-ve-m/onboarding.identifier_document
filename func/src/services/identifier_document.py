@@ -9,7 +9,6 @@ from base64 import b64decode
 from io import SEEK_SET
 from tempfile import TemporaryFile
 
-
 class DocumentService:
     def __init__(self, unique_id, document_validated):
         self.document = DocumentModel(unique_id=unique_id, document_validated=document_validated)
@@ -33,7 +32,7 @@ class DocumentService:
     @staticmethod
     async def _resolve_content(document: str) -> TemporaryFile:
         decoded_document = b64decode(document)
-        with TemporaryFile() as temp_file:
-            temp_file.write(decoded_document)
-            temp_file.seek(SEEK_SET)
-            return temp_file
+        temp_file = TemporaryFile()
+        temp_file.write(decoded_document)
+        temp_file.seek(SEEK_SET)
+        return temp_file
