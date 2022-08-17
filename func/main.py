@@ -27,7 +27,7 @@ async def save_document() -> Response:
     msg_error = "Unexpected error occurred"
     try:
         unique_id = await JwtService.decode_jwt_and_get_unique_id(jwt=jwt)
-        payload_validated = UserDocument(**raw_payload).dict()
+        payload_validated = UserDocument(**raw_payload)
         document_service = DocumentService(
             unique_id=unique_id, payload_validated=payload_validated
         )

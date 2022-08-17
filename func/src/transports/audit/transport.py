@@ -12,7 +12,7 @@ class Audit:
     audit_client = Persephone
 
     @classmethod
-    async def register_document_log(cls, document_model: DocumentModel):
+    async def register_document_log(cls, document_model: DocumentModel) -> bool:
         message = await document_model.get_user_document_audit_template()
         partition = QueueTypes.USER_DOCUMENT
         topic = config("PERSEPHONE_TOPIC_USER")
@@ -28,3 +28,4 @@ class Audit:
         )
         if not success:
             raise ErrorOnSendAuditLog
+        return True

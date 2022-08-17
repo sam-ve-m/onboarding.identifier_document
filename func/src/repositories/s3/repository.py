@@ -33,7 +33,7 @@ class FileRepository:
             raise ex
 
     @classmethod
-    async def list_contents(cls, file_path: str):
+    async def list_contents(cls, file_path: str) -> dict:
         try:
             bucket_name = config("AWS_BUCKET_USERS_FILES")
             async with cls.infra.get_client() as s3_client:

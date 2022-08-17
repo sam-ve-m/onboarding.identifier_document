@@ -9,4 +9,4 @@ stub_raw_payload = {
     "document_front": image_b64,
     "document_back": image_b64,
 }
-stub_payload_validated = UserDocument(**stub_raw_payload).dict()
+stub_payload_validated = UserDocument(**stub_raw_payload)

@@ -3,7 +3,7 @@ from ..enums.types import UserFileType, FileExtensionType
 
 
 class DocumentModel:
-    def __init__(self, unique_id, payload_validated):
+    def __init__(self, unique_id: str, payload_validated: dict):
         self.unique_id = unique_id
         self.document_front = payload_validated.get("document_front")
         self.document_back = payload_validated.get("document_back")
