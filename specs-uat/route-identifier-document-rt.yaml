@@ -14,10 +14,10 @@ spec:
   ingressconfig:
     annotations: null
     host: '*'
-    path: /onboarding/post-identifier-document
+    path: /onboarding/post_identifier_document
     tls: ""
   method: ""
   methods:
   - POST
   prefix: ""
-  relativeurl: /onboarding/post-identifier-document
+  relativeurl: /onboarding/post_identifier_document
