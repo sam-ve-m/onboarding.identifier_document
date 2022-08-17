@@ -1,6 +1,6 @@
 # Jormungandr - Onboarding
 from func.src.domain.validators.validator import UserDocument
-from tests.src.image import image_b64
+from tests.src.identifier_document.image import image_b64
 
 
 stub_content = {"Contents": {"test": "test"}}
