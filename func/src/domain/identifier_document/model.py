@@ -1,12 +1,13 @@
 # Jormungandr - Onboarding
+from ...domain.validators.validator import UserDocument
 from ..enums.types import UserFileType, FileExtensionType
 
 
 class DocumentModel:
-    def __init__(self, unique_id: str, payload_validated: dict):
+    def __init__(self, unique_id: str, payload_validated: UserDocument):
         self.unique_id = unique_id
-        self.document_front = payload_validated.get("document_front")
-        self.document_back = payload_validated.get("document_back")
+        self.document_front = payload_validated.document_front
+        self.document_back = payload_validated.document_back
         self.path_document_front = (
             f"{self.unique_id}/{UserFileType.DOCUMENT_FRONT}/{UserFileType.DOCUMENT_FRONT}"
             f"{FileExtensionType.DOCUMENT_EXTENSION}"

@@ -1,6 +1,7 @@
 # Jormungandr - Onboarding
+from func.src.domain.identifier_document.model import DocumentModel
 from func.src.domain.validators.validator import UserDocument
-from tests.src.identifier_document.image import image_b64
+from tests.src.services.identifier_document.image import image_b64
 
 
 stub_content = {"Contents": {"test": "test"}}
@@ -10,3 +11,5 @@ stub_raw_payload = {
     "document_back": image_b64,
 }
 stub_payload_validated = UserDocument(**stub_raw_payload)
+
+stub_document_model = DocumentModel(unique_id=stub_unique_id, payload_validated=stub_payload_validated)

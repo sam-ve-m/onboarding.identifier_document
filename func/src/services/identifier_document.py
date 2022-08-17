@@ -16,7 +16,7 @@ from tempfile import TemporaryFile
 class DocumentService:
     def __init__(self, unique_id: str, payload_validated: UserDocument):
         self.document = DocumentModel(
-            unique_id=unique_id, payload_validated=payload_validated.dict()
+            unique_id=unique_id, payload_validated=payload_validated
         )
 
     @staticmethod
@@ -27,12 +27,14 @@ class DocumentService:
         return True
 
     async def save_user_document_file(self) -> bool:
+
         temp_file_document_front = await DocumentService._resolve_content(
             self.document.document_front
         )
         temp_file_document_back = await DocumentService._resolve_content(
             self.document.document_back
         )
+        await Audit.record_message_log(document_model=self.document)
         await FileRepository.save_user_document_file(
             file_path=self.document.path_document_front,
             temp_file=temp_file_document_front,
@@ -42,7 +44,6 @@ class DocumentService:
             temp_file=temp_file_document_back,
         )
         await self._content_exists()
-        await Audit.register_document_log(document_model=self.document)
         return True
 
     async def _content_exists(self) -> bool:

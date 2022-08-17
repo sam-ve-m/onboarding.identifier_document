@@ -1,6 +1,6 @@
 # Jormungandr - Onboarding
 from func.src.services.identifier_document import DocumentService
-from tests.src.stubs import stub_payload_validated, stub_unique_id
+from tests.src.services.identifier_document.stubs import stub_payload_validated, stub_unique_id
 
 # Third party
 from pytest import fixture

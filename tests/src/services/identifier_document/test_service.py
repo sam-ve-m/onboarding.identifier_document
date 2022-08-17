@@ -1,5 +1,5 @@
 # Jormungandr
-from func.src.domain.exceptions.exceptions import FileNotExists, ErrorOnSendAuditLog, InvalidOnboardingCurrentStep
+from func.src.domain.exceptions.exceptions import FileNotExists, InvalidOnboardingCurrentStep
 from .stubs import stub_content
 from .image import image_b64
 
@@ -43,7 +43,7 @@ async def test_when_decode_document_then_return_temp_file(document_service):
 
 
 @pytest.mark.asyncio
-@patch("func.src.services.identifier_document.Audit.register_document_log")
+@patch("func.src.services.identifier_document.Audit.record_message_log")
 @patch(
     "func.src.services.identifier_document.FileRepository.list_contents",
     return_value=stub_content,
@@ -59,25 +59,8 @@ async def test_when_valid_document_then_return_true(
 
 @pytest.mark.asyncio
 @patch(
-    "func.src.transports.audit.transport.Persephone.send_to_persephone",
-    return_value=(False, "TESTE"),
-)
-@patch(
-    "func.src.services.identifier_document.FileRepository.list_contents",
-    return_value=stub_content,
-)
-@patch("func.src.services.identifier_document.FileRepository.save_user_document_file")
-async def test_when_failed_to_send_audit_log_then_raises(
-    mock_save_document, mock_save_user, mock_content, document_service
-):
-    with pytest.raises(ErrorOnSendAuditLog):
-        await document_service.save_user_document_file()
-
-
-@pytest.mark.asyncio
-@patch(
     "func.src.services.identifier_document.OnboardingSteps.get_user_current_step",
-    return_value="document_validator",
+    return_value="user_document_validator",
 )
 async def test_when_current_step_correct_then_return_true(mock_onboarding_steps, document_service):
     result = await document_service.validate_current_onboarding_step(
