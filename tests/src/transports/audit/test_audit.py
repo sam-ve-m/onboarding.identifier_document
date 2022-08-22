@@ -1,8 +1,12 @@
+# Jormungandr - Onboarding
 from func.src.domain.exceptions.exceptions import ErrorOnSendAuditLog
 from func.src.transports.audit.transport import Audit
 from tests.src.services.identifier_document.stubs import stub_document_model
+
+# Standards
 from unittest.mock import patch
 
+# Third party
 import pytest
 
 
