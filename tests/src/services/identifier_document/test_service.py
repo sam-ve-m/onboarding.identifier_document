@@ -16,7 +16,18 @@ import pytest
     "func.src.services.identifier_document.FileRepository.list_contents",
     return_value=stub_content,
 )
-async def test_when_content_exists_then_proceed(mock_list_contents, document_service):
+async def test_when_content_exists_then_return_true(mock_list_contents, document_service):
+    result = await document_service._content_exists()
+
+    assert result is True
+
+
+@pytest.mark.asyncio
+@patch(
+    "func.src.services.identifier_document.FileRepository.list_contents",
+    return_value=stub_content,
+)
+async def test_when_content_exists_then_mock_was_called(mock_list_contents, document_service):
     await document_service._content_exists()
 
     mock_list_contents.assert_called()
