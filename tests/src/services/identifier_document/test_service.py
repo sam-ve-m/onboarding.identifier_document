@@ -84,7 +84,30 @@ async def test_when_current_step_correct_then_return_true(mock_onboarding_steps,
 @pytest.mark.asyncio
 @patch(
     "func.src.services.identifier_document.OnboardingSteps._get_user_current_step",
+    side_effect=["finished", "user_document_validator"],
+)
+async def test_when_current_step_correct_then_return_true_us(mock_onboarding_steps, document_service):
+    result = await document_service.validate_current_onboarding_step(
+        jwt="123"
+    )
+
+    assert result is True
+
+
+@pytest.mark.asyncio
+@patch(
+    "func.src.services.identifier_document.OnboardingSteps._get_user_current_step",
     return_value="finished",
+)
+async def test_when_current_step_invalid_then_return_raises_us(mock_onboarding_steps, document_service):
+    with pytest.raises(InvalidOnboardingCurrentStep):
+        await document_service.validate_current_onboarding_step(jwt="123")
+
+
+@pytest.mark.asyncio
+@patch(
+    "func.src.services.identifier_document.OnboardingSteps._get_user_current_step",
+    return_value="other",
 )
 async def test_when_current_step_invalid_then_return_raises(mock_onboarding_steps, document_service):
     with pytest.raises(InvalidOnboardingCurrentStep):
