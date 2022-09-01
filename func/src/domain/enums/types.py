@@ -22,4 +22,7 @@ class FileExtensionType(StrEnum):
 
 
 class UserOnboardingStep(StrEnum):
-    IDENTIFIER_DOCUMENT = "document_validator"
+    IDENTIFIER_DOCUMENT_BR = "document_validator"
+    FINISHED_BR = "finished"
+    IDENTIFIER_DOCUMENT_US = "user_document_validator"
+    FINISHED_US = "finished"
