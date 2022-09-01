@@ -24,7 +24,7 @@ class DocumentService:
         user_current_step_br = await OnboardingSteps.get_user_current_step_br(jwt=jwt)
         if user_current_step_br == UserOnboardingStep.FINISHED_BR:
             user_current_step_us = await OnboardingSteps.get_user_current_step_us(jwt=jwt)
-            if user_current_step_us not in (UserOnboardingStep.IDENTIFIER_DOCUMENT_US, UserOnboardingStep.FINISHED_US):
+            if not user_current_step_us == UserOnboardingStep.IDENTIFIER_DOCUMENT_US:
                 raise InvalidOnboardingCurrentStep
         elif not user_current_step_br == UserOnboardingStep.IDENTIFIER_DOCUMENT_BR:
             raise InvalidOnboardingCurrentStep
