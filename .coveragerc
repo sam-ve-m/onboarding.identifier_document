@@ -11,4 +11,4 @@ omit =
     */__init__.py
 
 # command to run
-# pytest --cov-report term-missing --cov-config=.coveragerc --cov=func -v
+# pytest -v
