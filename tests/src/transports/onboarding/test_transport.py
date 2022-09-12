@@ -13,7 +13,7 @@ import pytest
 @pytest.mark.asyncio
 @patch('func.src.transports.onboarding_steps.transport.AsyncClient.get', return_value=stub_request_success)
 async def test_when_success_to_get_onboarding_steps_then_returns_current_step(mock_httpx_client):
-    user_current_step = await OnboardingSteps.get_user_current_step(jwt='12345')
+    user_current_step = await OnboardingSteps._get_user_current_step(jwt='12345', host="")
 
     assert isinstance(user_current_step, str)
     assert user_current_step == "selfie"
@@ -23,5 +23,5 @@ async def test_when_success_to_get_onboarding_steps_then_returns_current_step(mo
 @patch('func.src.transports.onboarding_steps.transport.AsyncClient.get', return_value=stub_request_failure)
 async def test_when_failure_to_get_onboarding_steps_then_raises(mock_httpx_client):
     with pytest.raises(OnboardingStepsStatusCodeNotOk):
-        await OnboardingSteps.get_user_current_step(jwt='12345')
+        await OnboardingSteps._get_user_current_step(jwt='12345', host="")
 

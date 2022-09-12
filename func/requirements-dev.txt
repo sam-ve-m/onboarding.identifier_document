@@ -1,2 +1,4 @@
 -r requirements.txt
 pytest-asyncio==0.18.3
+pytest-cov==3.0.0
+mutatest==3.1.0
