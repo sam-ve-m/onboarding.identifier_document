@@ -51,5 +51,5 @@ spec:
     packageref:
       name: identifier-document-fn-6d5cad87-d6b3-4f88-86b5-9bec321d1cb3
       namespace: default
-  requestsPerPod: 1
+  requestsPerPod: 10000
   resources: {}
