@@ -1,0 +1,55 @@
+include:
+- ./func/*
+kind: ArchiveUploadSpec
+name: func-G3OO
+
+---
+apiVersion: fission.io/v1
+kind: Package
+metadata:
+  creationTimestamp: null
+  name: identifier-document-fn-800beac3-6905-4b75-ad40-9d98e28da728
+  namespace: default
+spec:
+  deployment:
+    checksum: {}
+  environment:
+    name: identifier-document-env
+    namespace: default
+  source:
+    checksum: {}
+    type: url
+    url: archive://func-G3OO
+status:
+  buildstatus: pending
+  lastUpdateTimestamp: "2022-07-25T17:05:23Z"
+
+---
+apiVersion: fission.io/v1
+kind: Function
+metadata:
+  creationTimestamp: null
+  name: identifier-document-fn
+  namespace: default
+spec:
+  InvokeStrategy:
+    ExecutionStrategy:
+      ExecutorType: newdeploy
+      MaxScale: 1
+      MinScale: 1
+      SpecializationTimeout: 10
+      TargetCPUPercent: 80
+    StrategyType: execution
+  concurrency: 500
+  environment:
+    name: identifier-document-env
+    namespace: default
+  functionTimeout: 60
+  idletimeout: 120
+  package:
+    functionName: main.save_document
+    packageref:
+      name: identifier-document-fn-800beac3-6905-4b75-ad40-9d98e28da728
+      namespace: default
+  requestsPerPod: 10000
+  resources: {}
