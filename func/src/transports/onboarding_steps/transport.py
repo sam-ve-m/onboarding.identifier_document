@@ -13,7 +13,7 @@ class OnboardingSteps:
         async with AsyncClient() as httpx_client:
             request_result = await httpx_client.get(host, headers=headers)
             if not request_result.status_code == HTTPStatus.OK:
-                raise OnboardingStepsStatusCodeNotOk
+                raise OnboardingStepsStatusCodeNotOk()
             user_current_step = (
                 request_result.json().get("result", {}).get("current_step")
             )

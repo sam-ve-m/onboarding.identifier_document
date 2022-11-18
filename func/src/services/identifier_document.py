@@ -5,6 +5,7 @@ from tempfile import TemporaryFile
 from ..domain.enums.types import UserOnboardingStep
 from ..domain.exceptions.exceptions import FileNotExists, InvalidOnboardingCurrentStep
 from ..domain.identifier_document.model import DocumentModel
+from ..domain.models.device_info import DeviceInfo
 from ..domain.validators.validator import UserDocument
 from ..repositories.s3.repository import FileRepository
 from ..transports.audit.transport import Audit
@@ -12,9 +13,13 @@ from ..transports.onboarding_steps.transport import OnboardingSteps
 
 
 class DocumentService:
-    def __init__(self, unique_id: str, payload_validated: UserDocument):
+    def __init__(
+        self, unique_id: str, payload_validated: UserDocument, device_info: DeviceInfo
+    ):
         self.document = DocumentModel(
-            unique_id=unique_id, payload_validated=payload_validated
+            unique_id=unique_id,
+            payload_validated=payload_validated,
+            device_info=device_info,
         )
 
     @staticmethod
@@ -25,9 +30,9 @@ class DocumentService:
                 jwt=jwt
             )
             if not user_current_step_us == UserOnboardingStep.IDENTIFIER_DOCUMENT_US:
-                raise InvalidOnboardingCurrentStep
+                raise InvalidOnboardingCurrentStep()
         elif not user_current_step_br == UserOnboardingStep.IDENTIFIER_DOCUMENT_BR:
-            raise InvalidOnboardingCurrentStep
+            raise InvalidOnboardingCurrentStep()
         return True
 
     async def save_user_document_file(self) -> bool:
@@ -55,7 +60,7 @@ class DocumentService:
         for content in contents:
             content_result = await FileRepository.list_contents(file_path=content)
             if content_result is None or "Contents" not in content_result:
-                raise FileNotExists
+                raise FileNotExists()
         return True
 
     @staticmethod

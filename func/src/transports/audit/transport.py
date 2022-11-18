@@ -25,5 +25,5 @@ class Audit:
             schema_name=schema_name,
         )
         if not success:
-            raise ErrorOnSendAuditLog
+            raise ErrorOnSendAuditLog()
         return True
