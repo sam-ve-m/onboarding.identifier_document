@@ -1,12 +1,9 @@
-# Jormungandr - Onboarding
-from ...infrastructures.s3.infrastructure import S3Infrastructure
-
-# Standards
 from tempfile import TemporaryFile
 
-# Third party
-from etria_logger import Gladsheim
 from decouple import config
+from etria_logger import Gladsheim
+
+from ...infrastructures.s3.infrastructure import S3Infrastructure
 
 
 class FileRepository:

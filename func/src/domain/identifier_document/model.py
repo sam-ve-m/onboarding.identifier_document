@@ -1,4 +1,3 @@
-# Jormungandr - Onboarding
 from ...domain.validators.validator import UserDocument
 from ..enums.types import UserFileType, FileExtensionType
 

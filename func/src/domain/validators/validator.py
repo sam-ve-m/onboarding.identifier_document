@@ -1,7 +1,5 @@
-# Standards
 from re import match
 
-# Third party
 from pydantic import BaseModel, validator
 
 

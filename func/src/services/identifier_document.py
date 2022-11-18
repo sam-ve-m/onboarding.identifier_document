@@ -1,4 +1,7 @@
-# Jormungandr - Onboarding
+from base64 import b64decode
+from io import SEEK_SET
+from tempfile import TemporaryFile
+
 from ..domain.enums.types import UserOnboardingStep
 from ..domain.exceptions.exceptions import FileNotExists, InvalidOnboardingCurrentStep
 from ..domain.identifier_document.model import DocumentModel
@@ -6,11 +9,6 @@ from ..domain.validators.validator import UserDocument
 from ..repositories.s3.repository import FileRepository
 from ..transports.audit.transport import Audit
 from ..transports.onboarding_steps.transport import OnboardingSteps
-
-# Standards
-from base64 import b64decode
-from io import SEEK_SET
-from tempfile import TemporaryFile
 
 
 class DocumentService:
@@ -23,7 +21,9 @@ class DocumentService:
     async def validate_current_onboarding_step(jwt: str) -> bool:
         user_current_step_br = await OnboardingSteps.get_user_current_step_br(jwt=jwt)
         if user_current_step_br == UserOnboardingStep.FINISHED_BR:
-            user_current_step_us = await OnboardingSteps.get_user_current_step_us(jwt=jwt)
+            user_current_step_us = await OnboardingSteps.get_user_current_step_us(
+                jwt=jwt
+            )
             if not user_current_step_us == UserOnboardingStep.IDENTIFIER_DOCUMENT_US:
                 raise InvalidOnboardingCurrentStep
         elif not user_current_step_br == UserOnboardingStep.IDENTIFIER_DOCUMENT_BR:

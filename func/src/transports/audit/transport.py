@@ -1,9 +1,7 @@
-# Jormungandr - Onboarding
 from ...domain.enums.types import QueueTypes
 from ...domain.exceptions.exceptions import ErrorOnSendAuditLog
 from ...domain.identifier_document.model import DocumentModel
 
-# Third party
 from decouple import config
 from persephone_client import Persephone
 

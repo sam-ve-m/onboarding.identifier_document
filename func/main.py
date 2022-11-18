@@ -1,4 +1,8 @@
-# Jormungandr - Onboarding
+from http import HTTPStatus
+
+from etria_logger import Gladsheim
+from flask import request, Response
+
 from src.domain.enums.code import InternalCode
 from src.domain.exceptions.exceptions import (
     ErrorOnSendAuditLog,
@@ -12,13 +16,6 @@ from src.domain.response.model import ResponseModel
 from src.domain.validators.validator import UserDocument
 from src.services.identifier_document import DocumentService
 from src.services.jwt import JwtService
-
-# Standards
-from http import HTTPStatus
-
-# Third party
-from etria_logger import Gladsheim
-from flask import request, Response
 
 
 async def save_document() -> Response:

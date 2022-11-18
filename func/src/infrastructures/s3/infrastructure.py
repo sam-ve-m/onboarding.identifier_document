@@ -1,7 +1,7 @@
-# Third party
 from contextlib import asynccontextmanager
-from decouple import config
+
 import aioboto3
+from decouple import config
 
 
 class S3Infrastructure:

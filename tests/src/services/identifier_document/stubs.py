@@ -12,4 +12,6 @@ stub_raw_payload = {
 }
 stub_payload_validated = UserDocument(**stub_raw_payload)
 
-stub_document_model = DocumentModel(unique_id=stub_unique_id, payload_validated=stub_payload_validated)
+stub_document_model = DocumentModel(
+    unique_id=stub_unique_id, payload_validated=stub_payload_validated
+)
