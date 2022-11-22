@@ -23,3 +23,11 @@ class InvalidOnboardingCurrentStep(Exception):
 
 class ErrorOnGetUniqueId(Exception):
     msg = "Jormungandr-Onboarding::get_unique_id::Fail when trying to get unique_id"
+
+
+class DeviceInfoRequestFailed(Exception):
+    msg = "Error trying to get device info"
+
+
+class DeviceInfoNotSupplied(Exception):
+    msg = "Device info not supplied"

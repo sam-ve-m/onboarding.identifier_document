@@ -1,5 +1,8 @@
 # Jormungandr
-from func.src.domain.exceptions.exceptions import FileNotExists, InvalidOnboardingCurrentStep
+from func.src.domain.exceptions.exceptions import (
+    FileNotExists,
+    InvalidOnboardingCurrentStep,
+)
 from .stubs import stub_content
 from .image import image_b64
 
@@ -16,7 +19,9 @@ import pytest
     "func.src.services.identifier_document.FileRepository.list_contents",
     return_value=stub_content,
 )
-async def test_when_content_exists_then_return_true(mock_list_contents, document_service):
+async def test_when_content_exists_then_return_true(
+    mock_list_contents, document_service
+):
     result = await document_service._content_exists()
 
     assert result is True
@@ -27,7 +32,9 @@ async def test_when_content_exists_then_return_true(mock_list_contents, document
     "func.src.services.identifier_document.FileRepository.list_contents",
     return_value=stub_content,
 )
-async def test_when_content_exists_then_mock_was_called(mock_list_contents, document_service):
+async def test_when_content_exists_then_mock_was_called(
+    mock_list_contents, document_service
+):
     await document_service._content_exists()
 
     mock_list_contents.assert_called()
@@ -73,10 +80,10 @@ async def test_when_valid_document_then_return_true(
     "func.src.services.identifier_document.OnboardingSteps._get_user_current_step",
     return_value="document_validator",
 )
-async def test_when_current_step_correct_then_return_true(mock_onboarding_steps, document_service):
-    result = await document_service.validate_current_onboarding_step(
-        jwt="123"
-    )
+async def test_when_current_step_correct_then_return_true(
+    mock_onboarding_steps, document_service
+):
+    result = await document_service.validate_current_onboarding_step(jwt="123")
 
     assert result is True
 
@@ -86,10 +93,10 @@ async def test_when_current_step_correct_then_return_true(mock_onboarding_steps,
     "func.src.services.identifier_document.OnboardingSteps._get_user_current_step",
     side_effect=["finished", "user_document_validator"],
 )
-async def test_when_current_step_correct_then_return_true_us(mock_onboarding_steps, document_service):
-    result = await document_service.validate_current_onboarding_step(
-        jwt="123"
-    )
+async def test_when_current_step_correct_then_return_true_us(
+    mock_onboarding_steps, document_service
+):
+    result = await document_service.validate_current_onboarding_step(jwt="123")
 
     assert result is True
 
@@ -99,7 +106,9 @@ async def test_when_current_step_correct_then_return_true_us(mock_onboarding_ste
     "func.src.services.identifier_document.OnboardingSteps._get_user_current_step",
     return_value="finished",
 )
-async def test_when_current_step_invalid_then_return_raises_us(mock_onboarding_steps, document_service):
+async def test_when_current_step_invalid_then_return_raises_us(
+    mock_onboarding_steps, document_service
+):
     with pytest.raises(InvalidOnboardingCurrentStep):
         await document_service.validate_current_onboarding_step(jwt="123")
 
@@ -109,6 +118,8 @@ async def test_when_current_step_invalid_then_return_raises_us(mock_onboarding_s
     "func.src.services.identifier_document.OnboardingSteps._get_user_current_step",
     return_value="other",
 )
-async def test_when_current_step_invalid_then_return_raises(mock_onboarding_steps, document_service):
+async def test_when_current_step_invalid_then_return_raises(
+    mock_onboarding_steps, document_service
+):
     with pytest.raises(InvalidOnboardingCurrentStep):
         await document_service.validate_current_onboarding_step(jwt="123")
